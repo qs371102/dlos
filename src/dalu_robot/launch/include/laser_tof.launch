@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<launch>   
+
+   	<include file="$(find rplidar_ros)/launch/rplidar_tof.launch" />
+   	
+   	<!--<node pkg="laser_filter" type="laser_filter_node" name="laser_filter_node"/>-->
+   	
+   	<node pkg="laser_filters" type="scan_to_scan_filter_chain" name="laser_filter">
+        <rosparam command="load" file="$(find dalu_robot)/config/laser_filters_tof.yaml" />
+    </node>
+</launch>

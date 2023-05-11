@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+
+	<arg name="map" default="$(find dalu_robot)/maps/map.yaml"/>
+    
+    <!-- launch lidar -->
+    <include file="$(find dalu_robot)/launch/include/laser_tof.launch" />
+    
+    <!-- Run map server -->
+    <include file="$(find dalu_robot)/launch/include/map_server.launch" pass_all_args="true">
+    	<arg name="map" value="$(arg map)" />
+    </include>
+    
+    <!-- Run move base -->
+    <include file="$(find dalu_robot)/launch/include/move_base.launch" />
+    <!-- Run amcl -->
+    <include file="$(find dalu_robot)/launch/include/amcl.launch" />
+	
+    <include file="$(find dalu_robot)/launch/include/odom_ekf.launch" /> 
+</launch>

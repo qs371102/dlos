@@ -1,0 +1,23 @@
+local_costmap:
+  global_frame: map
+  robot_base_frame: base_link
+  update_frequency: 5.0
+  publish_frequency: 2.0 #代价地图发布可视化信息的频率
+  static_map: false #本地代价地图会不断的更新地图，所以这里设置为false
+  rolling_window: true #设置滚动窗口，使得机器人始终在窗体中心位置
+  width: 10.0 #代价地图的宽度
+  height: 10.0 #代价地图的长度
+  resolution: 0.05 #代价地图的分辨率
+  
+  plugins:
+#   - {name: sonar_layer,   type: 'range_sensor_layer::RangeSensorLayer'}
+   - {name: obstacle_layer, type: 'costmap_2d::ObstacleLayer'}
+   - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}
+   
+#  sonar_layer:
+#    enabled: false
+#    topics:  ["/ultrasound7","/ultrasound8"]
+#    no_readings_timeout: 0.5
+#    mark_threshold: 0.8
+#    clear_threshold: 0.2
+#    clear_on_max_reading : true

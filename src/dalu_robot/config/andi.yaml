@@ -1,0 +1,9 @@
+dl_base_controller:
+  wheel_diameter: 0.146
+  encoder_resolution: 260
+  base_callback_length: 54
+  use_hall: true
+dl_deltas_odometry:
+  wheel_track: 0.505
+dl_wheel_odometry:
+  wheel_track: 0.505

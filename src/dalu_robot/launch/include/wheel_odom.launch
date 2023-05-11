@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="dalu_robot" type="dl_deltas_odometry" name="dl_wheel_odometry" respawn="true" output="screen">
+        <param name="child_frame_id" value="base_link" />
+        <param name="pub_tf" value="false" />
+        <param name="odom_topic" value="wheel_odom"/>
+    </node>
+</launch>

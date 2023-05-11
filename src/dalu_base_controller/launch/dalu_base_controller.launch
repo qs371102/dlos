@@ -1,0 +1,24 @@
+<launch>
+	<arg name="base_serial_port" default="/dev/robotBase" />
+	<arg name="base_control_topic" default="cmd_vel" />
+
+	<node name="dalu_base_controller_node"
+		type="dalu_base_controller_node" pkg="dalu_base_controller"
+		output="log">
+		<param name="base_serial_port" value="$(arg base_serial_port)" />
+		<param name="base_control_topic"
+			value="$(arg base_control_topic)" />
+		<remap from="lf_wheel" to="flwheel" />
+		<remap from="rf_wheel" to="frwheel" />
+		<remap from="l_wheel" to="lwheel" />
+		<remap from="r_wheel" to="rwheel" />
+		<remap from="lr_wheel" to="rlwheel" />
+		<remap from="rr_wheel" to="rrwheel" />
+		<remap from="lf_hall" to="flhall" />
+		<remap from="rf_hall" to="frhall" />
+		<remap from="l_hall" to="lhall" />
+		<remap from="r_hall" to="rhall" />
+		<remap from="lr_hall" to="rlhall" />
+		<remap from="rr_hall" to="rrhall" />
+	</node>
+</launch>

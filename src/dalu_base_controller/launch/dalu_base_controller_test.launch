@@ -1,0 +1,7 @@
+<launch>
+	<node name="dalu_base_controller_node"
+		type="dalu_base_controller_node" pkg="dalu_base_controller"
+		output="screen">
+		<param name="base_serial_port" value="/dev/ttyUSB0" />
+	</node>
+</launch>

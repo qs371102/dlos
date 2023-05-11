@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="use_odom_ekf"                  default="false" />
+    
+    <group unless="$(arg use_odom_ekf)">
+        <node pkg="dalu_robot" type="dl_deltas_odometry" name="dl_deltas_odometry" respawn="true" output="screen">
+            <param name="child_frame_id" value="base_link" />
+            <param name="pub_tf" value="true" />
+            <param name="odom_topic" value="odom"/>
+        </node>
+    </group>
+
+	<group if="$(arg use_odom_ekf)">
+        <node pkg="dalu_robot" type="dl_deltas_odometry" name="dl_deltas_odometry" respawn="true" output="screen">
+            <param name="child_frame_id" value="base_link" />
+            <param name="pub_tf" value="false" />
+            <param name="odom_topic" value="odom_raw"/>
+        </node>
+
+        <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+            <param name="base_footprint_frame" value="base_link" />
+            <param name="output_frame" value="odom"/>
+            <param name="freq" value="10.0"/>
+            <param name="sensor_timeout" value="1.0"/>
+            <param name="odom_used" value="true"/>
+            <param name="imu_used" value="true"/>
+            <param name="vo_used" value="false"/>
+            <param name="debug" value="false"/>
+            <param name="self_diagnose" value="false"/>
+            <remap from="imu_data" to="imu/data_raw" />
+            <remap from="odom" to="odom_raw" />
+  　    </node>
+  
+       <node pkg="dalu_robot" type="odom_ekf.py" name="odom_ekf" output="screen">
+            <remap from="input" to="/robot_pose_ekf/odom_combined"/>
+            <remap from="output" to="/odom"/>
+       </node>
+   </group>
+</launch>
