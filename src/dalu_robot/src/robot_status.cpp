@@ -240,13 +240,13 @@ public:
   {
     if (broadcast_status_ && !alarm_status_)
     {
-      ROS_INFO("broadcast_status_ && !alarm_status_");
+      ROS_DEBUG("broadcast_status_ && !alarm_status_");
       if (loop_mode_)
       {
-        ROS_INFO("loop mode");
+        ROS_DEBUG("loop mode");
         if (played_seconds_++ % sound_time_length_ == 0)
         {
-          ROS_INFO("play");
+          ROS_DEBUG("play");
 
           if (last_broadcast_file_path_ != "")
           {
@@ -623,7 +623,7 @@ private:
     Json::Reader reader;
     reader.parse(msg.data, json);
     std::string file_name = json["Filename"].asString();
-    ROS_INFO_STREAM("Try to play:" << file_name << ",path:/home/robot/alarms/" + file_name);
+    ROS_DEBUG_STREAM("Try to play:" << file_name << ",path:/home/robot/alarms/" + file_name);
 
     if (file_name == "")
     {
@@ -652,7 +652,7 @@ private:
 
   void batteryStateCallback(sensor_msgs::BatteryState msg)
   {
-    ROS_INFO(__FUNCTION__);
+    ROS_DEBUG(__FUNCTION__);
     sensors_info_.battery_level_ = msg.percentage;
     //过滤0值
     if (msg.percentage == 0.0)
@@ -674,10 +674,10 @@ private:
     {
       need_charge_ = true;
       node_.setParam("need_charge", need_charge_);
-      ROS_INFO_STREAM("percent:"<<msg.percentage<<" former percent:"<<former_warnning_battery_percentage_);
+      ROS_DEBUG_STREAM("percent:"<<msg.percentage<<" former percent:"<<former_warnning_battery_percentage_);
       if (msg.percentage < former_warnning_battery_percentage_)
       {
-        ROS_INFO_STREAM("Battery percentage:"<<msg.percentage);
+        ROS_DEBUG_STREAM("Battery percentage:"<<msg.percentage);
         former_warnning_battery_percentage_ = msg.percentage;
         sc_.play(sound_play::SoundRequest::NEEDS_PLUGGING_BADLY);
       }
@@ -689,7 +689,7 @@ private:
         need_charge_ = false;
         node_.setParam("need_charge", need_charge_);
         former_warnning_battery_percentage_ = auto_charge_battery_percentage_;
-        ROS_INFO_STREAM("Set param need charge false...battery percentage:"<<msg.percentage);
+        ROS_DEBUG_STREAM("Set param need charge false...battery percentage:"<<msg.percentage);
       }
     }
 
@@ -809,7 +809,7 @@ private:
     {
       data_file >> total_run_time_;
       data_file >> total_odom_;
-      ROS_INFO("Get total run time :%ld total odom:%f", total_run_time_, total_odom_);
+      ROS_DEBUG("Get total run time :%ld total odom:%f", total_run_time_, total_odom_);
       data_file.close();
     }
   }

@@ -845,116 +845,117 @@ void BaseController::reset()
 void BaseController::loop()
 {
 //ROS_INFO(__FUNCTION__);
-  static unsigned short count = 0;
   readSerial();
-  if (count++ % 5 != 0)
-  {
-    return;
-  }
-  short angle = current_angle_;
-  ROS_DEBUG_STREAM(
-      "Mode:"<<dest_spray_mode_<<" "<<(int)current_spray_angle_ <<" "<<(int)dest_spray_angle_ <<" "<< current_spray_level_<<" "<<dest_spray_level_ <<" "<<current_angle_<<" "<<dest_angle_);
-  if (dest_spray_mode_ != SprayMode::SPARY_SWING)
-  {
-    if (current_spray_angle_ != dest_spray_angle_ || current_spray_level_ != dest_spray_level_
-        || current_angle_ != dest_angle_ || trigger_)
-    {
-      trigger_ = false;
-      if (dest_angle_ > current_angle_)
-      {
-        if (current_angle_ + steps_ < dest_angle_)
-        {
-          angle = current_angle_ + steps_;
-        }
-        else
-        {
-          angle = dest_angle_;
-        }
-      }
-      else
-      {
-        if (current_angle_ - steps_ > dest_angle_)
-        {
-          angle = current_angle_ - steps_;
-        }
-        else
-        {
-          angle = dest_angle_;
-        }
-      }
-      current_angle_ = angle;
-      sendSerialBoardCommand(angle);
-    }
-  }
-  else if (dest_angle_ != current_angle_)
-  {
-    if (dest_angle_ > current_angle_)
-    {
-      if (current_angle_ + steps_ < dest_angle_)
-      {
-        angle = current_angle_ + steps_;
-      }
-      else
-      {
-        angle = dest_angle_;
-        dest_angle_ = -45;
-      }
-    }
-    else
-    {
-      if (current_angle_ - steps_ > dest_angle_)
-      {
-        angle = current_angle_ - steps_;
-      }
-      else
-      {
-        angle = dest_angle_;
-        dest_angle_ = 45;
-      }
-    }
-    current_angle_ = angle;
-    sendSerialBoardCommand(angle);
-  }
-
-  if (toggle_o3_)
-  {
-    if (!pump_status_)
-    {
-      pump_status_ = true;
-      trigger_ = true;
-    }
-  }
-  else if (toggle_nebulizer_)
-  {
-    if (last_open_pump_time_.isZero() || ros::Time::now() - last_open_pump_time_ <= ros::Duration(pump_interval_))
-    {
-      if (!pump_status_)
-      {
-        pump_status_ = true;
-        last_open_pump_time_ = ros::Time::now();
-        trigger_ = true;
-      }
-    }
-    else if (ros::Time::now() - last_open_pump_time_ > ros::Duration(pump_interval_)
-        && ros::Time::now() - last_open_pump_time_ < ros::Duration(pump_interval_ * 2))
-    {
-      if (pump_status_)
-      {
-        pump_status_ = false;
-        trigger_ = true;
-      }
-    }
-    else
-    {
-      last_open_pump_time_ = ros::Time::now();
-    }
-  }
-  else
-  {
-    if (pump_status_)
-    {
-      pump_status_ = false;
-      trigger_ = true;
-    }
-  }
+//下面的不重要
+//  static unsigned short count = 0;
+//  if (count++ % 5 != 0)
+//  {
+//    return;
+//  }
+//  short angle = current_angle_;
+//  ROS_DEBUG_STREAM(
+//      "Mode:"<<dest_spray_mode_<<" "<<(int)current_spray_angle_ <<" "<<(int)dest_spray_angle_ <<" "<< current_spray_level_<<" "<<dest_spray_level_ <<" "<<current_angle_<<" "<<dest_angle_);
+//  if (dest_spray_mode_ != SprayMode::SPARY_SWING)
+//  {
+//    if (current_spray_angle_ != dest_spray_angle_ || current_spray_level_ != dest_spray_level_
+//        || current_angle_ != dest_angle_ || trigger_)
+//    {
+//      trigger_ = false;
+//      if (dest_angle_ > current_angle_)
+//      {
+//        if (current_angle_ + steps_ < dest_angle_)
+//        {
+//          angle = current_angle_ + steps_;
+//        }
+//        else
+//        {
+//          angle = dest_angle_;
+//        }
+//      }
+//      else
+//      {
+//        if (current_angle_ - steps_ > dest_angle_)
+//        {
+//          angle = current_angle_ - steps_;
+//        }
+//        else
+//        {
+//          angle = dest_angle_;
+//        }
+//      }
+//      current_angle_ = angle;
+//      sendSerialBoardCommand(angle);
+//    }
+//  }
+//  else if (dest_angle_ != current_angle_)
+//  {
+//    if (dest_angle_ > current_angle_)
+//    {
+//      if (current_angle_ + steps_ < dest_angle_)
+//      {
+//        angle = current_angle_ + steps_;
+//      }
+//      else
+//      {
+//        angle = dest_angle_;
+//        dest_angle_ = -45;
+//      }
+//    }
+//    else
+//    {
+//      if (current_angle_ - steps_ > dest_angle_)
+//      {
+//        angle = current_angle_ - steps_;
+//      }
+//      else
+//      {
+//        angle = dest_angle_;
+//        dest_angle_ = 45;
+//      }
+//    }
+//    current_angle_ = angle;
+//    sendSerialBoardCommand(angle);
+//  }
+//
+//  if (toggle_o3_)
+//  {
+//    if (!pump_status_)
+//    {
+//      pump_status_ = true;
+//      trigger_ = true;
+//    }
+//  }
+//  else if (toggle_nebulizer_)
+//  {
+//    if (last_open_pump_time_.isZero() || ros::Time::now() - last_open_pump_time_ <= ros::Duration(pump_interval_))
+//    {
+//      if (!pump_status_)
+//      {
+//        pump_status_ = true;
+//        last_open_pump_time_ = ros::Time::now();
+//        trigger_ = true;
+//      }
+//    }
+//    else if (ros::Time::now() - last_open_pump_time_ > ros::Duration(pump_interval_)
+//        && ros::Time::now() - last_open_pump_time_ < ros::Duration(pump_interval_ * 2))
+//    {
+//      if (pump_status_)
+//      {
+//        pump_status_ = false;
+//        trigger_ = true;
+//      }
+//    }
+//    else
+//    {
+//      last_open_pump_time_ = ros::Time::now();
+//    }
+//  }
+//  else
+//  {
+//    if (pump_status_)
+//    {
+//      pump_status_ = false;
+//      trigger_ = true;
+//    }
+//  }
 }
