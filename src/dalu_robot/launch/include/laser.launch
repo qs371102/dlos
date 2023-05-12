@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="lidar_name" default="rplidar" />  <!-- rplidar, M10 , N10 -->
+
+	<node pkg="laser_filters" type="scan_to_scan_filter_chain"
+		name="laser_filter">
+		<rosparam command="load"
+			file="$(find dalu_robot)/config/laser_filters/laser_mapping_filter.yaml" />
+	</node>
+
+	<group if="$(eval arg('lidar_name') == 'rplidar')">
+		<include file="$(find rplidar_ros)/launch/rplidar_tof.launch" />
+	</group>
+
+	<group unless="$(eval arg('lidar_name') == 'rplidar')">
+		<node pkg="lslidar_x10_driver" type="lslidar_x10_driver_node"
+			name="lslidar_x10_driver_node" output="screen">
+			<param name="lidar_name" value="$(arg lidar_name)" />
+			<param name="serial_port" value="/dev/robotLaser" />
+			<param name="interface_selection" value="serial" />
+			<param name="frame_id" value="base_laser" />
+			<param name="scan_topic" value="scan" />
+			<param name="angle_disable_min" value="0.0" />
+			<param name="angle_disable_max" value="0.0" />
+			<param name="min_range" value="0" />
+			<param name="max_range" value="100.0" />
+			<param name="use_gps_ts" value="false" />
+		</node>
+	</group>
+</launch>

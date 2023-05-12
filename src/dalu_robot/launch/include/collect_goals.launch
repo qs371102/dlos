@@ -1,33 +1,42 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="map" default="$(find dalu_robot)/maps/map.yaml"/>
+	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
 	<arg name="collect_button_num" value="3" />
 	<arg name="collect_button_sym" value="Y" />
-	<arg name="end_button_num" value="6" /> 
+	<arg name="end_button_num" value="6" />
 	<arg name="end_button_sym" value="BACK" />
 	<arg name="waypoints_file" default="/config/patrol_points.yaml" />
-	
-	<node pkg="dalu_robot" type="dl_record_patrol_points" name="dl_record_patrol_points" output="screen" required="true" >
-		<param name="/waypoints_file" value="$(arg waypoints_file)" type="string" />
-		<param name="/collect_button_num" value="$(arg collect_button_num)" type="int" />
-		<param name="/end_button_num" value="$(arg end_button_num)" type="int" />
-		<param name="/collect_button_sym" value="$(arg collect_button_sym)" type="string" />
-		<param name="/end_button_sym" value="$(arg end_button_sym)" type="string" />
-	</node>
-    
-    <!-- launch lidar -->
-    <include file="$(find dalu_robot)/launch/include/laser_tof.launch" />
-    
-    <!-- Run map server -->
-    <include file="$(find dalu_robot)/launch/include/map_server.launch" >
-    	<arg name="map" value="$(arg map)" />
-    </include>
-    
-    <!-- Run amcl -->
-    <include file="$(find dalu_robot)/launch/include/amcl.launch" />
-	
 
-    <include file="$(find dalu_robot)/launch/include/odom_ekf.launch" />	
-	
+	<node pkg="dalu_robot" type="dl_record_patrol_points"
+		name="dl_record_patrol_points" output="screen" required="true">
+		<param name="/waypoints_file" value="$(arg waypoints_file)"
+			type="string" />
+		<param name="/collect_button_num"
+			value="$(arg collect_button_num)" type="int" />
+		<param name="/end_button_num" value="$(arg end_button_num)"
+			type="int" />
+		<param name="/collect_button_sym"
+			value="$(arg collect_button_sym)" type="string" />
+		<param name="/end_button_sym" value="$(arg end_button_sym)"
+			type="string" />
+	</node>
+
+	<!-- launch lidar -->
+	<include
+		file="$(find dalu_robot)/launch/include/laser_tof.launch" />
+
+	<!-- Run map server -->
+	<include
+		file="$(find dalu_robot)/launch/include/map_server.launch">
+		<arg name="map" value="$(arg map)" />
+	</include>
+
+	<!-- Run amcl -->
+	<include file="$(find dalu_robot)/launch/include/amcl.launch" />
+
+
+	<include
+		file="$(find dalu_robot)/launch/include/odom_ekf.launch" />
+
 </launch>

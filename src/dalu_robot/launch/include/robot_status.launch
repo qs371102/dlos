@@ -1,5 +1,5 @@
 <launch>
-  <node pkg="dalu_robot" type="dl_status" name="dl_status">
-    <param name="auto_chrge_battery_percentage" value="20.0"/>
-  </node>
+	<node pkg="dalu_robot" type="dl_status" name="dl_status">
+		<param name="auto_chrge_battery_percentage" value="20.0" />
+	</node>
 </launch>

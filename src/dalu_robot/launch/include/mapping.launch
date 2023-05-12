@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <launch>
-　　　　<!-- Run gmapping to create map -->
-    <include file="$(find dalu_robot)/launch/include/gmapping.launch" />
-	
+	<!-- Run gmapping to create map -->
+	<include
+		file="$(find dalu_robot)/launch/include/gmapping.launch" />
+
 	<!-- launch lidar -->
-    <include file="$(find dalu_robot)/launch/include/laser_tof.launch" />
-    
-    
-    <include file="$(find dalu_robot)/launch/include/odom_ekf.launch" />
-	
+	<include
+		file="$(find dalu_robot)/launch/include/laser.launch" />
+
+
+	<include
+		file="$(find dalu_robot)/launch/include/odom_ekf.launch" />
+
 </launch>

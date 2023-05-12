@@ -1,41 +1,25 @@
 <?xml version="1.0"?>
 <launch>
-    <arg name="indoor" value="$(optenv INDOOR false)" />
 
-<group if="$(arg indoor)">	
-	<node pkg="move_base" type="move_base" respawn="true" name="move_base"
-		output="screen">
-		<rosparam file="$(find dalu_robot)/config/indoor/costmap_common_params.yaml"
+	<node pkg="move_base" type="move_base" respawn="true"
+		name="move_base" output="screen">
+		<rosparam
+			file="$(find dalu_robot)/config/navigation/costmap_common_params.yaml"
 			command="load" ns="global_costmap" />
-		<rosparam file="$(find dalu_robot)/config/indoor/costmap_common_params.yaml"
+		<rosparam
+			file="$(find dalu_robot)/config/navigation/costmap_common_params.yaml"
 			command="load" ns="local_costmap" />
-		<rosparam file="$(find dalu_robot)/config/indoor/local_costmap_params.yaml"
+		<rosparam
+			file="$(find dalu_robot)/config/navigation/local_costmap_params.yaml"
 			command="load" />
-		<rosparam file="$(find dalu_robot)/config/indoor/global_costmap_params.yaml"
+		<rosparam
+			file="$(find dalu_robot)/config/navigation/global_costmap_params.yaml"
 			command="load" />
-		<rosparam file="$(find dalu_robot)/config/indoor/base_local_planner_params.yaml"
+		<rosparam
+			file="$(find dalu_robot)/config/navigation/base_local_planner_params.yaml"
 			command="load" />
-		<remap from="/cmd_vel"  to="/cmd_vel_intermediate"/>	
-		<remap from="/odom"  to="/wheel_odom"/>	
+		<remap from="/cmd_vel" to="/cmd_vel_intermediate" />
+		<remap from="/odom" to="/wheel_odom" />
 	</node>
-</group>
-
-<group unless="$(arg indoor)">	
-	<node pkg="move_base" type="move_base" respawn="true" name="move_base"
-		output="screen">
-		<rosparam file="$(find dalu_robot)/config/outdoor/costmap_common_params.yaml"
-			command="load" ns="global_costmap" />
-		<rosparam file="$(find dalu_robot)/config/outdoor/costmap_common_params.yaml"
-			command="load" ns="local_costmap" />
-		<rosparam file="$(find dalu_robot)/config/outdoor/local_costmap_params.yaml"
-			command="load" />
-		<rosparam file="$(find dalu_robot)/config/outdoor/global_costmap_params.yaml"
-			command="load" />
-		<rosparam file="$(find dalu_robot)/config/outdoor/base_local_planner_params.yaml"
-			command="load" />
-		<remap from="/cmd_vel"  to="/cmd_vel_intermediate"/>
-		<remap from="/odom"  to="/wheel_odom"/>	
-	</node>
-</group>
 
 </launch>

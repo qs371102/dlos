@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
 <launch>
- 	<arg name="patrol_points" default="$(find dalu_robot)/config/patrol_points.yaml" />
- 	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
- 	
-    <!-- Run auto patrol -->
-    <include file="$(find dalu_robot)/launch/include/auto_patrol.launch"/>
-    <!--include file="$(find navi_server)/launch/start_navi_server.launch">
-        <arg name="patrol_points" value="$(arg patrol_points)" />
-    </include-->
-    
-    <include file="$(find dalu_robot)/launch/include/navigation.launch">
-         <arg name="map" value="$(arg map)" />
-    </include>
- 
+	<arg name="patrol_points"
+		default="$(find dalu_robot)/config/patrol_points.yaml" />
+	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
+
+	<!-- Run auto patrol -->
+	<include
+		file="$(find dalu_robot)/launch/include/auto_patrol.launch" />
+	<!--include file="$(find navi_server)/launch/start_navi_server.launch"> 
+		<arg name="patrol_points" value="$(arg patrol_points)" /> </include -->
+
+	<include
+		file="$(find dalu_robot)/launch/include/navigation.launch">
+		<arg name="map" value="$(arg map)" />
+	</include>
+
 </launch>

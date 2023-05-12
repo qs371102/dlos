@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <launch>
-	
-	<arg name="patrol_points" default="$(find dalu_robot)/config/patrol_points.yaml" />
-	
-	<node pkg="dalu_robot" type="dl_auto_patrol" name="dl_auto_patrol" required="true" output="screen">
+
+	<arg name="patrol_points"
+		default="$(find dalu_robot)/config/patrol_points.yaml" />
+
+	<node pkg="dalu_robot" type="dl_auto_patrol" name="dl_auto_patrol"
+		required="true" output="screen">
 		<param name="initial_pose_x" value="0.0" />
 		<param name="initial_pose_y" value="0.0" />
 		<param name="initial_orientation_z" value="0.0" />
@@ -12,5 +14,5 @@
 		<param name="auto_charge" value="false" />
 		<rosparam command="load" file="$(arg patrol_points)" />
 	</node>
-	
-</launch>	
+
+</launch>

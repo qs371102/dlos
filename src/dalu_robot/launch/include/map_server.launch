@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
-<launch>	
-　　　　<arg name="map" default="$(find dalu_robot)/maps/map.yaml"/>
+<launch>
+	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
 	<!-- Run the map server -->
-	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map)"/>
-	
+	<node name="map_server" pkg="map_server" type="map_server"
+		args="$(arg map)" />
+
 </launch>
