@@ -34,10 +34,26 @@
 			<remap from="odom" to="odom_raw" />
 		</node>
 
-		<node pkg="dalu_robot" type="odom_ekf.py" name="odom_ekf"
-			output="screen">
-			<remap from="input" to="/robot_pose_ekf/odom_combined" />
-			<remap from="output" to="/odom" />
-		</node>
+		<node name="relay_field" type="relay_field" pkg="topic_tools"
+			args="/robot_pose_ekf/odom_combined /odom nav_msgs/Odometry
+'{header:
+    {seq: 0,
+     stamp: {secs: 1, nsecs: 0},
+     frame_id: m.header.frame_id},
+child_frame_id: 'base_link',
+pose:       
+  {pose:
+    {position: {x: m.pose.pose.position.x, y: m.pose.pose.position.y, z: 0.0},
+    orientation: {x: m.pose.pose.orientation.x, y: m.pose.pose.orientation.y, z: m.pose.pose.orientation.z, w: m.pose.pose.orientation.w}},
+  covariance: [0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.05, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.05]},                                                  
+twist:                             
+  {twist:
+    {linear: {x: 0.0, y: 0.0, z: 0.0},
+    angular: {x: 0.0, y: 0.0, z: 0.0}},
+  covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}}'" />
 	</group>
 </launch>

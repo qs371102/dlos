@@ -10,8 +10,7 @@
 
 	<!-- Run map server -->
 	<include
-		file="$(find dalu_robot)/launch/include/map_server.launch"
-		pass_all_args="true">
+		file="$(find dalu_robot)/launch/include/map_server.launch">
 		<arg name="map" value="$(arg map)" />
 	</include>
 
