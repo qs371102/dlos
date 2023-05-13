@@ -1,12 +1,15 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="lidar_name" default="rplidar" />
 	<!-- Run gmapping to create map -->
 	<include
 		file="$(find dalu_robot)/launch/include/gmapping.launch" />
 
 	<!-- launch lidar -->
 	<include
-		file="$(find dalu_robot)/launch/include/laser.launch" />
+		file="$(find dalu_robot)/launch/include/laser.launch">
+		<arg name="lidar_name" value="$(arg lidar_name)" />
+	</include>	
 
 
 	<include

@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 <launch>
-
+	<arg name="lidar_name" default="rplidar" />
 	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
 
 	<!-- launch lidar -->
-	<include
-		file="$(find dalu_robot)/launch/include/laser.launch" />
+	<include file="$(find dalu_robot)/launch/include/laser.launch">
+		<arg name="lidar_name" value="$(arg lidar_name)" />
+	</include>
 
 	<!-- Run map server -->
 	<include

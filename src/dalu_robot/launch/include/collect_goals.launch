@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <launch>
-
+	<arg name="lidar_name" default="rplidar" />
 	<arg name="map" default="$(find dalu_robot)/maps/map.yaml" />
 	<arg name="collect_button_num" value="3" />
 	<arg name="collect_button_sym" value="Y" />
@@ -23,8 +23,9 @@
 	</node>
 
 	<!-- launch lidar -->
-	<include
-		file="$(find dalu_robot)/launch/include/laser_tof.launch" />
+	<include file="$(find dalu_robot)/launch/include/laser.launch">
+		<arg name="lidar_name" value="$(arg lidar_name)" />
+	</include>
 
 	<!-- Run map server -->
 	<include
