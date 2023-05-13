@@ -133,6 +133,8 @@ Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT
 Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC
 ```
 
+得到设备的 Vendor id 以及 Product id --> <span style="color:red">0403:6001</span>
+
 执行
 
 
@@ -147,8 +149,8 @@ Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT
 建立好映射文件后 执行下面指令 生效配置
 
 ```
-sudo service udev restart
-sudo udevadm trigger
+  sudo service udev restart
+  sudo udevadm trigger
 ```
 
 ## 启动底盘驱动程序
@@ -174,7 +176,7 @@ sudo udevadm trigger
 ```
 ![Screenshot](./images/teleop_twist_keyboard.png)
   
-  按键盘 x  c  按键减小机器的线速度0.3m/s  角速度在0.6rad/s 左右
+  按键盘 x  c  按键减小机器的线速度0.3 m/s  角速度在0.6 rad/s 左右
   按键盘 U    I    O 可控制机器左前、前、右前移动
   
 
@@ -259,8 +261,24 @@ footprint: [[-0.48,-0.325],[-0.48,0.325], [0.38, 0.325], [0.38,-0.325]] #设置�
 
 ## FAQ
 
-找不到 dalu_robot pkg?
+1.找不到 dalu_robot pkg?
 
-  需要将环境变量加到 ~/.bashrc  或者每次打开新终端 source  path_to_dlos/dlos/devel/setup.bash
+- 需要将环境变量加到 ~/.bashrc  或者每次打开新终端 source  path_to_dlos/devel/setup.bash
+  
+2.里程计如何校准?
 
+- 在正确测量机器相关参数,以及修改相关配置文件后 重启启动底盘的驱动 控制机器直行一米 如果 /wheel_odom   pose x 反馈距离大于实际值 则成比例系数改小
+- dalu_robot/config/andi.yaml 文件中 wheel_diameter 参数反之亦然. 待机器直行精度达到期望时 可继续校准机器旋转的航向角反馈,机器原地转一圈 反馈航向超过 
+- 360° 即2π弧度则适当修改wheel_track 数值 直至达到期望精度.该过程可多次取均值校准.
+
+3.如何在建图导航中融合IMU?
+
+- odom_ekf.launch 文件将 use_odom_ekf 参数值改为 True 同时需要 将Imu 的数据发布为 /imu/data_raw  ,frame_id 为 base_imu_link .需要注意最好使用六轴 Imu 数要
+- 符合ROS规定的坐标系 
+
+  
+## Bug Report 
+
+E-mail: qiaosheng@dalurobot.com 
+  
 
