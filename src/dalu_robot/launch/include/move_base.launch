@@ -18,7 +18,7 @@
 		<rosparam
 			file="$(find dalu_robot)/config/navigation/base_local_planner_params.yaml"
 			command="load" />
-		<remap from="/cmd_vel" to="/cmd_vel_intermediate" />
+		<remap from="/cmd_vel" to="/cmd_vel" />
 		<remap from="/odom" to="/wheel_odom" />
 	</node>
 
