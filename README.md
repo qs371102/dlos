@@ -133,7 +133,7 @@ Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT
 Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC
 ```
 
-得到设备的 Vendor id 以及 Product id --> <span style="color:red">0403:6001</span>
+得到设备的 Vendor id 以及 Product id --> 0403:6001
 
 执行
 
@@ -176,7 +176,7 @@ Bus 001 Device 011: ID 0403:6001 Future Technology Devices International, Ltd FT
 ```
 ![Screenshot](./images/teleop_twist_keyboard.png)
   
-  按键盘 x  c  按键减小机器的线速度0.3 m/s  角速度在0.6 rad/s 左右
+  按键盘 x  c  按键减小机器的线速度到0.3 m/s  角速度到0.6 rad/s 左右
   按键盘 U    I    O 可控制机器左前、前、右前移动
   
 
@@ -273,7 +273,7 @@ footprint: [[-0.48,-0.325],[-0.48,0.325], [0.38, 0.325], [0.38,-0.325]] #设置�
 
 3.如何在建图导航中融合IMU?
 
-- odom_ekf.launch 文件将 use_odom_ekf 参数值改为 True 同时需要 将Imu 的数据发布为 /imu/data_raw  ,frame_id 为 base_imu_link .需要注意最好使用六轴 Imu 数要
+- odom_ekf.launch 文件将 use_odom_ekf 参数值改为 True 同时需要 将Imu 的数据发布为 /imu/data_raw  ,frame_id 为 base_imu_link .需要注意最好使用六轴 Imu 数据要
 - 符合ROS规定的坐标系 
 
   
