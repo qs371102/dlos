@@ -38,7 +38,7 @@
 			args="/robot_pose_ekf/odom_combined /odom nav_msgs/Odometry
 '{header:
     {seq: 0,
-     stamp: {secs: 1, nsecs: 0},
+     stamp: {secs: m.header.stamp.secs, nsecs: m.header.stamp.nsecs},
      frame_id: m.header.frame_id},
 child_frame_id: 'base_link',
 pose:       
