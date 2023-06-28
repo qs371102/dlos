@@ -1,11 +1,11 @@
-  dl_base_controller:
-    wheel_diameter: 0.155    #轮子直径　单位米
-    encoder_resolution: 336　　#轮子编码器分辨率　　大logo 260   新版小logo 336
-    base_callback_length: 54 #底盘反馈协议长度（不需要修改）
-    use_hall: true　　　　　　　　　　　#使用霍尔计数器　还是码盘　默认使用霍尔　　　　
-  dl_deltas_odometry:
-    odom_type: 2             #六轮底盘默认是 2 中间轮模式   四轮或8轮机器值要改为 1
-    wheel_track: 0.615　　　　　　　#机器实际的左右轮距　单位米
-  dl_wheel_odometry:
-    odom_type: 2             #六轮底盘默认是 2 中间轮模式   四轮或8轮机器值要改为 1
-    wheel_track: 0.615　　　　　　　#机器实际的左右轮距　单位米
+dl_base_controller:
+  wheel_diameter: 0.155     #轮子直径　单位米
+  encoder_resolution: 336   #轮子编码器分辨率　　大logo 260   新版小logo 336
+  base_callback_length: 54  #底盘反馈协议长度（不需要修改）
+  use_hall: true            #使用霍尔计数器　还是码盘　默认使用霍尔　　　　
+dl_deltas_odometry:
+  odom_type: 2             #六轮底盘默认是 2 中间轮模式   四轮或8轮机器值要改为 1
+  wheel_track: 0.615       #机器实际的左右轮距　单位米
+dl_wheel_odometry:
+  odom_type: 2             #六轮底盘默认是 2 中间轮模式   四轮或8轮机器值要改为 1
+  wheel_track: 0.615       #机器实际的左右轮距　单位米
